@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+# browser profile, if you point TINKERCAD_PROFILE_DIR inside the repo
+.profile/
