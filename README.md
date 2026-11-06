@@ -4,7 +4,9 @@ An MCP server that builds Arduino circuits in [Tinkercad Circuits](https://www.t
 
 It works with Claude Code, Claude Desktop, Cursor, Codex and any other client that speaks the [Model Context Protocol](https://modelcontextprotocol.io).
 
-![A traffic light built by the server: Arduino Uno, three LEDs with resistors on a breadboard, wires routed around the board, green LED lit in the simulator](docs/images/traffic-light.png)
+![The server builds a traffic light on an empty breadboard, then runs it in the Tinkercad simulator: green, yellow, red](https://raw.githubusercontent.com/netchuu/tinkercad-circuits-mcp/main/docs/images/demo.gif)
+
+*`examples/traffic-light.json`, built and simulated by the server. The LEDs are read back from the simulator to check the order.*
 
 I wrote it to get through a course with 70-odd Arduino lab tasks that all had to be handed in as Tinkercad designs. Building them by hand took forever.
 
