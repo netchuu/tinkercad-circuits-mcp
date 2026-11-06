@@ -30,7 +30,7 @@ npm run build
 npm run login
 ```
 
-`npm run login` opens Chrome on the Tinkercad page. Sign in the way you normally do (Google, Autodesk account, school account). The window closes once you reach your dashboard. The session lives in `~/.tinkercad-circuits-mcp/profile`; your password never passes through this project.
+`npm run login` opens Chrome on the Tinkercad page. Sign in the way you normally do; it is an ordinary Chrome window. It closes once you reach your dashboard. The session lives in `~/.tinkercad-circuits-mcp/profile`; your password never passes through this project.
 
 ### Claude Code
 
@@ -61,7 +61,7 @@ Ask for a circuit in plain words:
 
 > Build a traffic light in Tinkercad: red, yellow and green LEDs on pins 10, 9 and 8, green for 5 s, yellow 2 s, red 5 s. Then run it and check the order.
 
-Under the hood Claude sends a spec like this to `tinkercad_build_circuit`:
+Claude turns that into a spec for `tinkercad_build_circuit`. A smaller one, a single blinking LED, looks like this:
 
 ```json
 {
@@ -83,7 +83,7 @@ To check the circuit, Claude calls `tinkercad_simulate`:
 { "samples_ms": [500, 1500, 2500], "leds": ["led1"] }
 ```
 
-and gets back something like `led1: on, off, on` with the simulator time at each sample.
+and gets back, for each sample, whether `led1` was on and the simulator clock at that moment.
 
 ## Tools
 
