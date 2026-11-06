@@ -1,0 +1,14 @@
+{
+  "title": "Servo follows a knob",
+  "parts": [
+    { "ref": "knob", "type": "potentiometer", "at": "4g", "pin": "term0", "angle": 0, "props": { "position": 0.5 } },
+    { "ref": "s1", "type": "servo", "at": "14c", "pin": "Ground", "angle": 0 }
+  ],
+  "wires": [
+    ["uno.GND1", "T-1"], ["uno.5V", "T+1"],
+    ["uno.GND2", "B-1"], ["uno.5V", "B+1"],
+    ["4j", "T-4"], ["6j", "T+6"], ["5j", "uno.A0"],
+    ["14a", "B-14"], ["15a", "B+15"], ["16a", "uno.D9"]
+  ],
+  "code": "#include <Servo.h>\nServo s;\n\nvoid setup() {\n  s.attach(9);\n}\n\nvoid loop() {\n  s.write(map(analogRead(A0), 0, 1023, 0, 180));\n  delay(15);\n}\n"
+}

@@ -1,0 +1,18 @@
+{
+  "title": "Traffic light",
+  "parts": [
+    { "ref": "r1", "type": "resistor", "at": "2g", "pin": "1", "angle": 90, "props": { "ohms": 220 } },
+    { "ref": "red", "type": "led", "at": "6i", "pin": "anode", "angle": 180, "props": { "color": "red" } },
+    { "ref": "r2", "type": "resistor", "at": "11g", "pin": "1", "angle": 90, "props": { "ohms": 220 } },
+    { "ref": "yellow", "type": "led", "at": "15i", "pin": "anode", "angle": 180, "props": { "color": "yellow" } },
+    { "ref": "r3", "type": "resistor", "at": "20g", "pin": "1", "angle": 90, "props": { "ohms": 220 } },
+    { "ref": "green", "type": "led", "at": "24i", "pin": "anode", "angle": 180, "props": { "color": "green" } }
+  ],
+  "wires": [
+    ["uno.GND1", "T-1"],
+    ["uno.D10", "2i"], ["7h", "T-7"],
+    ["uno.D9", "11i"], ["16h", "T-16"],
+    ["uno.D8", "20i"], ["25h", "T-25"]
+  ],
+  "code": "// Green 5 s, yellow 2 s, red 5 s, forever.\nconst int RED = 10, YELLOW = 9, GREEN = 8;\n\nvoid light(int pin, unsigned long ms) {\n  digitalWrite(pin, HIGH);\n  delay(ms);\n  digitalWrite(pin, LOW);\n}\n\nvoid setup() {\n  pinMode(RED, OUTPUT);\n  pinMode(YELLOW, OUTPUT);\n  pinMode(GREEN, OUTPUT);\n}\n\nvoid loop() {\n  light(GREEN, 5000);\n  light(YELLOW, 2000);\n  light(RED, 5000);\n}\n"
+}

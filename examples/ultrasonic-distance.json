@@ -1,0 +1,15 @@
+{
+  "title": "Ultrasonic distance with warning LED",
+  "parts": [
+    { "ref": "sonar", "type": "ultrasonic", "at": "5c", "pin": "pos", "angle": 0, "props": { "distance_cm": 80 } },
+    { "ref": "r1", "type": "resistor", "at": "14g", "pin": "1", "angle": 90, "props": { "ohms": 220 } },
+    { "ref": "led1", "type": "led", "at": "18i", "pin": "anode", "angle": 180 }
+  ],
+  "wires": [
+    ["uno.GND1", "T-1"],
+    ["uno.GND2", "B-1"], ["uno.5V", "B+1"],
+    ["5a", "B+5"], ["6a", "uno.D9"], ["7a", "uno.D10"], ["8a", "B-8"],
+    ["uno.D3", "14i"], ["19h", "T-19"]
+  ],
+  "code": "// HC-SR04 on D9 (trig) / D10 (echo). LED on D3 lights when something is within 100 cm.\nconst int TRIG = 9, ECHO = 10, LED = 3;\n\nfloat readCm() {\n  digitalWrite(TRIG, LOW);\n  delayMicroseconds(2);\n  digitalWrite(TRIG, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(TRIG, LOW);\n  long us = pulseIn(ECHO, HIGH, 30000);\n  return us == 0 ? -1 : us * 0.0343 / 2.0;\n}\n\nvoid setup() {\n  Serial.begin(9600);\n  pinMode(TRIG, OUTPUT);\n  pinMode(ECHO, INPUT);\n  pinMode(LED, OUTPUT);\n}\n\nvoid loop() {\n  float cm = readCm();\n  digitalWrite(LED, cm >= 0 && cm <= 100 ? HIGH : LOW);\n  Serial.print(\"distance: \");\n  Serial.print(cm, 1);\n  Serial.println(\" cm\");\n  delay(300);\n}\n"
+}

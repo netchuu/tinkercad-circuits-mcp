@@ -1,0 +1,13 @@
+{
+  "title": "Blink an LED on a breadboard",
+  "parts": [
+    { "ref": "r1", "type": "resistor", "at": "5g", "pin": "1", "angle": 90, "props": { "ohms": 220 } },
+    { "ref": "led1", "type": "led", "at": "9i", "pin": "anode", "angle": 180 }
+  ],
+  "wires": [
+    ["uno.GND1", "T-1"],
+    ["uno.D13", "5i"],
+    ["10h", "T-10"]
+  ],
+  "code": "void setup() {\n  pinMode(13, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(13, HIGH);\n  delay(1000);\n  digitalWrite(13, LOW);\n  delay(1000);\n}\n"
+}

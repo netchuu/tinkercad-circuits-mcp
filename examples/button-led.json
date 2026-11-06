@@ -1,0 +1,16 @@
+{
+  "title": "Button lights an LED",
+  "parts": [
+    { "ref": "r1", "type": "resistor", "at": "5g", "pin": "1", "angle": 90, "props": { "ohms": 220 } },
+    { "ref": "led1", "type": "led", "at": "9i", "pin": "anode", "angle": 180, "props": { "color": "red" } },
+    { "ref": "b1", "type": "pushbutton", "at": "19f", "pin": "1" }
+  ],
+  "wires": [
+    ["uno.GND1", "T-1"],
+    ["uno.D13", "5i"],
+    ["10h", "T-10"],
+    ["19j", "T-19"],
+    ["21d", "uno.D2"]
+  ],
+  "code": "// LED on D13 is on while the button on D2 is held down.\nconst int BUTTON = 2;\nconst int LED = 13;\nint last = HIGH;\n\nvoid setup() {\n  Serial.begin(9600);\n  pinMode(BUTTON, INPUT_PULLUP);\n  pinMode(LED, OUTPUT);\n  Serial.println(\"READY\");\n}\n\nvoid loop() {\n  int now = digitalRead(BUTTON);\n  digitalWrite(LED, now == LOW ? HIGH : LOW);\n  if (now != last) {\n    Serial.println(now == LOW ? \"pressed\" : \"released\");\n    last = now;\n  }\n}\n"
+}
