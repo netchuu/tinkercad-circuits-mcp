@@ -1,11 +1,10 @@
-#!/usr/bin/env node
 // `npm run login`: opens Chrome on the Tinkercad sign-in page and waits until you
 // have signed in. The session stays in the browser profile; nothing else is stored.
 import { launch, looksSignedIn, PROFILE_DIR, TINKERCAD, closeBrowser } from "./browser.js";
 
 const TIMEOUT_MS = 10 * 60 * 1000;
 
-async function main(): Promise<void> {
+export async function runLogin(): Promise<void> {
   const ctx = await launch(false);
   const page = ctx.pages()[0] ?? (await ctx.newPage());
   await page.goto(`${TINKERCAD}/dashboard`, { waitUntil: "domcontentloaded" });
@@ -31,8 +30,11 @@ async function main(): Promise<void> {
   throw new Error("Timed out after 10 minutes waiting for sign-in.");
 }
 
-main().catch(async (err) => {
-  console.error(err instanceof Error ? err.message : err);
-  await closeBrowser().catch(() => {});
-  process.exit(1);
-});
+// run directly: node dist/login.js
+if (process.argv[1] && /login\.js$/.test(process.argv[1])) {
+  runLogin().catch(async (err) => {
+    console.error(err instanceof Error ? err.message : err);
+    await closeBrowser().catch(() => {});
+    process.exit(1);
+  });
+}

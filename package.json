@@ -1,6 +1,7 @@
 {
   "name": "tinkercad-circuits-mcp",
   "version": "0.1.0",
+  "mcpName": "io.github.netchuu/tinkercad-circuits-mcp",
   "description": "MCP server that builds and simulates Arduino breadboard circuits in Autodesk Tinkercad Circuits. Works with Claude Code, Claude Desktop, Cursor, Codex and other MCP clients.",
   "keywords": [
     "tinkercad",
@@ -44,7 +45,8 @@
     "login": "node dist/login.js",
     "test": "tsx --test test/*.test.ts",
     "smoke": "node scripts/smoke.mjs",
-    "parts-doc": "tsx scripts/parts-doc.ts > docs/parts.md"
+    "parts-doc": "tsx scripts/parts-doc.ts > docs/parts.md",
+    "prepublishOnly": "npm run build && npm test"
   },
   "engines": {
     "node": ">=20"

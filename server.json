@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.netchuu/tinkercad-circuits-mcp",
+  "description": "Builds and simulates Arduino breadboard circuits in Tinkercad Circuits.",
+  "repository": {
+    "url": "https://github.com/netchuu/tinkercad-circuits-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "tinkercad-circuits-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

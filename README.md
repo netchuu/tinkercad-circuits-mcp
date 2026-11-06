@@ -24,22 +24,20 @@ About 20 parts are supported: LEDs, resistors, buttons, potentiometers, servos, 
 
 ## Setup
 
-You need Node.js 20 or newer and Google Chrome.
+You need Node.js 20 or newer and Google Chrome. First sign in to Tinkercad once:
 
 ```bash
-git clone https://github.com/netchuu/tinkercad-circuits-mcp.git
-cd tinkercad-circuits-mcp
-npm install
-npm run build
-npm run login
+npx -y tinkercad-circuits-mcp login
 ```
 
-`npm run login` opens Chrome on the Tinkercad page. Sign in the way you normally do; it is an ordinary Chrome window. It closes once you reach your dashboard. The session lives in `~/.tinkercad-circuits-mcp/profile`; your password never passes through this project.
+This opens Chrome on the Tinkercad page. Sign in the way you normally do; it is an ordinary Chrome window. It closes once you reach your dashboard. The session lives in `~/.tinkercad-circuits-mcp/profile`; your password never passes through this project.
+
+Then add the server to your client.
 
 ### Claude Code
 
 ```bash
-claude mcp add tinkercad-circuits -- node /full/path/to/tinkercad-circuits-mcp/dist/index.js
+claude mcp add tinkercad-circuits -- npx -y tinkercad-circuits-mcp
 ```
 
 ### Claude Desktop, Cursor and other clients
@@ -50,8 +48,8 @@ Add this to the client's MCP config: `claude_desktop_config.json` for Claude Des
 {
   "mcpServers": {
     "tinkercad-circuits": {
-      "command": "node",
-      "args": ["/full/path/to/tinkercad-circuits-mcp/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "tinkercad-circuits-mcp"]
     }
   }
 }
@@ -63,9 +61,21 @@ In `~/.codex/config.toml`:
 
 ```toml
 [mcp_servers.tinkercad-circuits]
-command = "node"
-args = ["/full/path/to/tinkercad-circuits-mcp/dist/index.js"]
+command = "npx"
+args = ["-y", "tinkercad-circuits-mcp"]
 ```
+
+### From source
+
+```bash
+git clone https://github.com/netchuu/tinkercad-circuits-mcp.git
+cd tinkercad-circuits-mcp
+npm install
+npm run build
+npm run login
+```
+
+and use `node /full/path/to/tinkercad-circuits-mcp/dist/index.js` as the command in the configs above.
 
 ### Skill
 
