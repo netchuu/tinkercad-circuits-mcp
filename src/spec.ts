@@ -74,7 +74,7 @@ export function distanceToTargetY(cm: number): number {
   return Math.round((-98 - cm / 1.108) * 10) / 10;
 }
 
-function friendlyProps(part: Part, ref: string, props: Record<string, string | number>): PlacedPart["props"] {
+export function friendlyProps(part: Part, ref: string, props: Record<string, string | number>): PlacedPart["props"] {
   const out: PlacedPart["props"] = [];
   for (const [name, value] of Object.entries(props)) {
     if (part.id === "resistor" && name === "ohms") {
