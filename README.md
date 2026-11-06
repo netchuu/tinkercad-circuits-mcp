@@ -2,9 +2,13 @@
 
 An MCP server that builds Arduino circuits in [Tinkercad Circuits](https://www.tinkercad.com/circuits) and runs them in the simulator. You describe the circuit (which part goes in which breadboard hole, the wires, the sketch) and it appears in your Tinkercad account, wired on a breadboard, with the code saved. It can then start the simulation, press buttons, type into the Serial Monitor and tell you what the LEDs, servos and serial output did.
 
-It works with Claude Code, Claude Desktop and any other client that speaks the [Model Context Protocol](https://modelcontextprotocol.io).
+It works with Claude Code, Claude Desktop, Cursor, Codex and any other client that speaks the [Model Context Protocol](https://modelcontextprotocol.io).
 
-I wrote it to get through a course with 70-odd Arduino lab tasks that all had to be handed in as Tinkercad designs. Building them by hand took forever, and the existing tools that drive Tinkercad by clicking on the screen kept breaking. This one talks to the editor's own data model instead, so a circuit comes out the same way every time.
+![A traffic light built by the server: Arduino Uno, three LEDs with resistors on a breadboard, wires routed around the board, green LED lit in the simulator](docs/images/traffic-light.png)
+
+I wrote it to get through a course with 70-odd Arduino lab tasks that all had to be handed in as Tinkercad designs. Building them by hand took forever.
+
+If you found [sethski/tinkercad-mcp-server](https://github.com/sethski/tinkercad-mcp-server) first: that one works by clicking and dragging in the editor. When I tried it in November 2026 it could not create a circuit or find the breadboard in the parts panel, and it had no way of knowing which hole a leg ended up in. This server changes the editor's circuit model directly, so parts land in the holes you name, and it reads the result back and checks it in the simulator.
 
 > Not affiliated with Autodesk. Tinkercad has no public API for Circuits; this uses the editor's internals, which can change without notice. See [How it works](docs/how-it-works.md).
 
@@ -38,9 +42,9 @@ npm run login
 claude mcp add tinkercad-circuits -- node /full/path/to/tinkercad-circuits-mcp/dist/index.js
 ```
 
-### Claude Desktop and other clients
+### Claude Desktop, Cursor and other clients
 
-Add this to the client's MCP config (for Claude Desktop that is `claude_desktop_config.json`):
+Add this to the client's MCP config: `claude_desktop_config.json` for Claude Desktop, `~/.cursor/mcp.json` for Cursor.
 
 ```json
 {
@@ -52,6 +56,18 @@ Add this to the client's MCP config (for Claude Desktop that is `claude_desktop_
   }
 }
 ```
+
+### Codex
+
+In `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.tinkercad-circuits]
+command = "node"
+args = ["/full/path/to/tinkercad-circuits-mcp/dist/index.js"]
+```
+
+### Skill
 
 There is also a Claude Code skill in [skills/tinkercad-circuits](skills/tinkercad-circuits/SKILL.md) that explains the workflow to Claude: how to lay out a breadboard, what to use when Tinkercad lacks a part, and how to check that a circuit does what the task asks. Copy the folder to `~/.claude/skills/` to use it.
 
