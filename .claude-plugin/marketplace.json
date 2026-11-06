@@ -1,0 +1,15 @@
+{
+  "name": "tinkercad-circuits-mcp",
+  "description": "Claude Code plugin for building and simulating Arduino circuits in Tinkercad Circuits.",
+  "owner": {
+    "name": "Azamat Medenov",
+    "url": "https://github.com/netchuu"
+  },
+  "plugins": [
+    {
+      "name": "tinkercad-circuits",
+      "source": "./",
+      "description": "Build and simulate Arduino breadboard circuits in Tinkercad Circuits."
+    }
+  ]
+}

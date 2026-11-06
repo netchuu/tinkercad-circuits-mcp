@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "tinkercad-circuits",
+  "version": "0.1.0",
+  "description": "Build and simulate Arduino breadboard circuits in Tinkercad Circuits: the MCP server plus a skill for laying out breadboards and checking circuits in the simulator.",
+  "author": {
+    "name": "Azamat Medenov",
+    "url": "https://github.com/netchuu"
+  },
+  "homepage": "https://github.com/netchuu/tinkercad-circuits-mcp",
+  "repository": "https://github.com/netchuu/tinkercad-circuits-mcp",
+  "license": "MIT",
+  "keywords": ["tinkercad", "arduino", "breadboard", "circuit-simulator", "mcp"]
+}

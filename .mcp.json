@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tinkercad-circuits": {
+      "command": "npx",
+      "args": ["-y", "tinkercad-circuits-mcp"]
+    }
+  }
+}

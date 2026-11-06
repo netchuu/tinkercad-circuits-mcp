@@ -26,20 +26,35 @@ About 20 parts are supported: LEDs, resistors, buttons, potentiometers, servos, 
 
 ## Setup
 
-You need Node.js 20 or newer and Google Chrome. First sign in to Tinkercad once:
-
-```bash
-npx -y tinkercad-circuits-mcp login
-```
-
-This opens Chrome on the Tinkercad page. Sign in the way you normally do; it is an ordinary Chrome window. It closes once you reach your dashboard. The session lives in `~/.tinkercad-circuits-mcp/profile`; your password never passes through this project.
-
-Then add the server to your client.
+You need Node.js 20 or newer and Google Chrome.
 
 ### Claude Code
 
+Install it as a plugin. That adds the MCP server and the skill in one go:
+
+```
+/plugin install tinkercad-circuits --marketplace netchuu/tinkercad-circuits-mcp
+```
+
+From a shell: `claude plugin marketplace add netchuu/tinkercad-circuits-mcp` and then `claude plugin install tinkercad-circuits@tinkercad-circuits-mcp`.
+
+If you only want the server: `claude mcp add tinkercad-circuits -- npx -y tinkercad-circuits-mcp`.
+
+### Codex
+
+In `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.tinkercad-circuits]
+command = "npx"
+args = ["-y", "tinkercad-circuits-mcp"]
+```
+
+and the skill:
+
 ```bash
-claude mcp add tinkercad-circuits -- npx -y tinkercad-circuits-mcp
+mkdir -p ~/.codex/skills/tinkercad-circuits
+curl -fsSL https://raw.githubusercontent.com/netchuu/tinkercad-circuits-mcp/main/skills/tinkercad-circuits/SKILL.md -o ~/.codex/skills/tinkercad-circuits/SKILL.md
 ```
 
 ### Claude Desktop, Cursor and other clients
@@ -57,15 +72,25 @@ Add this to the client's MCP config: `claude_desktop_config.json` for Claude Des
 }
 ```
 
-### Codex
+### Sign in to Tinkercad
 
-In `~/.codex/config.toml`:
+Once, whichever client you use:
 
-```toml
-[mcp_servers.tinkercad-circuits]
-command = "npx"
-args = ["-y", "tinkercad-circuits-mcp"]
+```bash
+npx -y tinkercad-circuits-mcp login
 ```
+
+This opens Chrome on the Tinkercad page. Sign in the way you normally do; it is an ordinary Chrome window. It closes once you reach your dashboard. The session lives in `~/.tinkercad-circuits-mcp/profile`; your password never passes through this project.
+
+Restart your client afterwards so it picks up the server.
+
+### Let your agent set it up
+
+You can hand the setup to Claude Code or Codex:
+
+> Set up the Tinkercad Circuits MCP server from https://github.com/netchuu/tinkercad-circuits-mcp, following its README.
+
+The agent can do everything except signing in. It should run `npx -y tinkercad-circuits-mcp login` and ask you to sign in in the Chrome window that opens; then, after a restart, `tinkercad_status` should report `signedIn: true`.
 
 ### From source
 
@@ -78,10 +103,6 @@ npm run login
 ```
 
 and use `node /full/path/to/tinkercad-circuits-mcp/dist/index.js` as the command in the configs above.
-
-### Skill
-
-There is also a Claude Code skill in [skills/tinkercad-circuits](skills/tinkercad-circuits/SKILL.md) that explains the workflow to Claude: how to lay out a breadboard, what to use when Tinkercad lacks a part, and how to check that a circuit does what the task asks. Copy the folder to `~/.claude/skills/` to use it.
 
 ## Using it
 
